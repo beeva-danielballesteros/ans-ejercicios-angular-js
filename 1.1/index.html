@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+	<head>
+    	<title>My Angular App</title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+  	</head>
+  	<body>
+	  	<div ng-app="appUsuario" ng-controller="ctrlUsuario">
+			<h1>Hola {{usuario}}</h1>
+		</div>
+		<script>
+			var app = angular.module('appUsuario', []);
+			app.controller('ctrlUsuario', function($scope) {
+			    $scope.usuario = "Daniel Ballesteros";
+			});
+		</script>
+	</body>
+</html>
