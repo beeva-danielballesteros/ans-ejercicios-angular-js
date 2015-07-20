@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Angular.js para ANS</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">		
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3" ng-app="appTabla" ng-controller="ctrlTabla">
+        <table class="table table-condensed table-bordered table-striped">
+          <tr>
+            <th>Identificador</th>
+            <th>Contenido</th>
+            <th>Random</th>
+          </tr>
+          <tr ng-repeat="d in datos.datos">
+            <td>{{ d.id }}</td>
+            <td>{{ d.dato }}</td>
+            <td>{{ d.random }}</td>
+          </tr>
+        </table>
+			</div>
+		</div>
+	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script>
+      var app = angular.module('appTabla', []);
+      app.controller('ctrlTabla', function($scope) {
+        var jsonText = '{ "datos" : [';
+        for(var i = 0; i < 10; i++){
+          jsonText += (i != 0)?",":"";
+          jsonText += '{ "id":'+i+' , "dato":"dato'+i+'", "random":'+ (Math.floor((Math.random() * 100) + 1)) +' }'
+        }
+        jsonText += ']}';
+        $scope.datos = JSON.parse(jsonText);
+      });
+    </script>
+  </body>
+</html>
