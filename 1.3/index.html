@@ -19,7 +19,11 @@
 
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
-
+    <style>
+      .ancho_50{
+        width: 50px;
+      }
+    </style>
   </head>
   <body>
   <div class="container-fluid">
@@ -29,8 +33,9 @@
           <tr class="head-csv">
           </tr>
           <tr ng-repeat="csv in $data">
+            <td class="ancho_50" style="background-color:{{ csv.Color }};"></td>
             <td>{{ csv.Partido }}</td>
-            <td>{{ csv.Porcentaje }}</td>
+            <td class="ancho_50"><b>{{ csv.Porcentaje }}%</b></td>
           </tr>
         </table>
       </div>
@@ -42,7 +47,6 @@
       $http.get("https://s3.eu-central-1.amazonaws.com/ciff/encuesta.csv")
       .success(function (response) {
         var data = CSV2JSON(response);
-        alert(data.length);
         $scope.tableParams = new ngTableParams({
           page: 1,            // show first page
           count: 10           // count per page
@@ -68,8 +72,9 @@
 
         var json = JSON.stringify(objArray);
         var str = json.replace(/},/g, "},\r\n");
+        var obj = JSON.parse(str);
 
-        return str;
+        return obj;
     }
     function CSVToArray(strData, strDelimiter) {
         // Check to see if the delimiter is defined. If not,
